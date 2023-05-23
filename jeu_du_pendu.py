@@ -18,6 +18,7 @@ introduction=''' Le jeu du pendu est un jeu de devinettes où vous devez trouver
  Chaque lettre correcte révèle sa position dans le mot, tandis que chaque lettre incorrecte vous rapproche de la défaite. 
  L'objectif est de deviner le mot avant d'être pendu.
  Veuillez noter que les mots selectionés ne contiennent pas d'accents ou de caractères spéciaux.
+ Les lettres sont en miniscule.
  '''
 print(introduction)
 
@@ -34,9 +35,10 @@ with open("mots_pendu.txt", 'r') as f:
 def choisir_mot(liste_mots):
     return random.choice(liste_mots)
 
-
+# Afficher les lettres devinees ou pas
 def afficher_mot_actuel(mot_aleatoire, lettres_trouvees):
     mot_affiche=""
+    # vérifie si la lettre est présente dans la liste 
     for lettre in mot_aleatoire:
         if lettre in lettres_trouvees:
                 mot_affiche += lettre + " "
@@ -46,30 +48,37 @@ def afficher_mot_actuel(mot_aleatoire, lettres_trouvees):
 
 
 def jouer_au_pendu() :
+    # chosis un mot dans le fichier text
     mot_aleatoire = choisir_mot(liste_mots)
+    # nombre de tentatives
     tentatives=6
+    # liste des lettres trouvées
     lettres_trouvees=[]
 
+    # debut de la boucle limitee par le nombre de tentative
     while tentatives > 0 :
+        # demande a l utilisateur d entrer une lettre
         lettre=input("Entre une lettre miniscule :")
-        if lettre.isalpha():
-            if lettre.islower():
-                if lettre in mot_aleatoire:
-                    print(f'Bravo vous avez deviné une bonne lettre ! ')
-                    lettres_trouvees.append(lettre)
-                    mot_actuel=afficher_mot_actuel(mot_aleatoire, lettres_trouvees)
-                    print(mot_actuel)
-                    if "_" not in mot_actuel:
-                        print(f'Félicitation,  vous avez deviné le mot au complet : {mot_aleatoire}! Gagné')
-                        return
-                elif lettre in lettres_trouvees:
-                    print(f'Vous avez déjà deviné la lettre {lettre} ! Essayer une autre !')
-                else: 
-                    tentatives-=1
-                    print(f"La lettre {lettre} n'est pas dans le mot ! Il vous reste {tentatives} tentatives")
-            else:   
-                 print("Erreur : Veuillez entrer uniquement des lettres miniscules.")
-        else :
-             print("Erreur : Veuillez entrer uniquement des lettres alphabétiques.")   
+        # Cas d'erreur
+        assert lettre.isalpha(),"Erreur : Veuillez entrer uniquement des lettres alphabétiques."
+        assert lettre.islower(),"Erreur : Veuillez entrer uniquement des lettres miniscules."
+        
+        # Si la lettre a deja ete trouvee
+        if lettre in lettres_trouvees:
+            print(f'Vous avez déjà deviné la lettre {lettre} ! Essayer une autre !')
+        # Si la lettre est dans le mot cherche
+        elif lettre in mot_aleatoire:
+            print(f'Bravo vous avez deviné une bonne lettre ! ')
+            lettres_trouvees.append(lettre)
+            mot_actuel=afficher_mot_actuel(mot_aleatoire, lettres_trouvees)
+            print(mot_actuel)
+            # Si toutes les lettres on étaient déterminées
+            if "_" not in mot_actuel:
+                print(f'Félicitation,  vous avez deviné le mot au complet : {mot_aleatoire}! Gagné')
+                return
+        # la lettre n est pas dans le mot
+        else: 
+            tentatives-=1
+            print(f"La lettre {lettre} n'est pas dans le mot ! Il vous reste {tentatives} tentatives")
     print(f"C'est perdu ! Le mot était {mot_aleatoire}")        
 jouer_au_pendu()
