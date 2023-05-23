@@ -15,10 +15,10 @@ Le jeu du pendu est un jeu de devinettes où vous devez trouver un mot en propos
 Les mots selectionés ne contiennent pas d'accents ou de caractères spéciaux.
  Les lettres doivent etre ecrite en miniscule.
 
+Si ces conditions ne sont pas respectées, le code s'arretera !
 ## Instructions d'installation
 
-1. Télécharger le fichier jeu_du_pendu.py et mots_pendu.txt sur votre machine locale.
-Noter : les fichiers doivent etre dans le meme dossier 
+1. Télécharger le fichier jeu_du_pendu.py et mots_pendu.txt sur votre machine locale.les fichiers doivent etre dans le meme dossier 
 2.Lancer le script jeu_du_pendu.py et entez les lettres une par une en suivant le jeu 
 
 
